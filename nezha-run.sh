@@ -38,12 +38,9 @@ install_agent() {
     read -rp "> " NZ_TLS
     NZ_TLS=${NZ_TLS:-"false"}
 
-    echo -e "${BLUE}请输入哪吒 Client Secret (必填): ${NC}"
+    echo -e "${BLUE}请输入哪吒 Client Secret (默认: 2FIezSjN1tEmZgtM0QhKfBlKsufDvFAT): ${NC}"
     read -rp "> " NZ_CLIENT_SECRET
-    if [ -z "$NZ_CLIENT_SECRET" ]; then
-        echo -e "${RED}必须提供 Client Secret${NC}"
-        exit 1
-    fi
+    NZ_CLIENT_SECRET=${NZ_CLIENT_SECRET:-"2FIezSjN1tEmZgtM0QhKfBlKsufDvFAT"}
 
     # 写配置文件
     cat > "$CONFIG_FILE" <<EOF
@@ -92,37 +89,4 @@ status_agent() {
 stop_agent() {
     if [ -f "$PID_FILE" ]; then
         kill "$(cat "$PID_FILE")" 2>/dev/null || true
-        rm -f "$PID_FILE"
-        echo -e "${GREEN}Agent 已停止${NC}"
-    else
-        echo -e "${RED}未找到PID文件，可能未运行${NC}"
-    fi
-}
-
-show_logs() {
-    tail -f "$LOG_FILE"
-}
-
-# ========== 菜单 ==========
-clear
-echo -e "${GREEN}========================================${NC}"
-echo -e "${GREEN}        哪吒 Agent 一键管理脚本        ${NC}"
-echo -e "${GREEN}========================================${NC}"
-echo
-echo -e "${YELLOW}请选择操作:${NC}"
-echo -e "${BLUE}1) 安装并启动 Agent${NC}"
-echo -e "${BLUE}2) 查看运行状态${NC}"
-echo -e "${BLUE}3) 停止 Agent${NC}"
-echo -e "${BLUE}4) 查看日志${NC}"
-echo -e "${BLUE}5) 退出${NC}"
-echo
-read -rp "请输入选择 (1-5): " CHOICE
-
-case "$CHOICE" in
-    1) install_agent ;;
-    2) status_agent ;;
-    3) stop_agent ;;
-    4) show_logs ;;
-    5) exit 0 ;;
-    *) echo -e "${RED}无效选择${NC}" ;;
-esac
+        rm -f
