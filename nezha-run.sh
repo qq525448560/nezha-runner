@@ -1,4 +1,4 @@
-set -euo pipefail
+set -eu
 
 # 默认值（可在运行时通过环境变量覆盖）
 : "${NZ_SERVER:=nz.xmm.asia:8008}"
@@ -183,3 +183,4 @@ echo "$SUP_PID" > "$PID_FILE"
 echo "supervisor started, PID=$SUP_PID (watches $BINARY_PATH)."
 echo "日志: $LOG_FILE  PID 文件: $PID_FILE"
 echo "停止: kill $SUP_PID"
+
