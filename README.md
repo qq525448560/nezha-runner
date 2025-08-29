@@ -10,4 +10,11 @@
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/qq525448560/nezha-runner/main/nezha-run.sh)
+```
 
+## 可选参数示例
+如果你想覆盖默认参数，可以在运行前设置环境变量，例如：
+```
+NZ_SERVER="nz.example.com:8008" NZ_CLIENT_SECRET="your_secret_here" bash <(curl -fsSL https://raw.githubusercontent.com/qq525448560/nezha-runner/main/nezha-run.sh)
+```
+## 结束
